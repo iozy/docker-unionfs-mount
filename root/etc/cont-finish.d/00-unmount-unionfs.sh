@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/command/with-contenv sh
 echo "$( date +'%Y/%m/%d %H:%M:%S' ) Unmounting ${MERGED_DIR}"
 fusermount -uz ${MERGED_DIR}
 if [[ $? -eq 0 ]]; then

@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/command/with-contenv sh
 
 # Display variables for troubleshooting
 echo -e "*** ENV set:\\n\
