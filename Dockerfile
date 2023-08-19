@@ -16,9 +16,7 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 TZ="Europe/Berlin" PUID=1000 PGID=1000 READ_O
 # AUTO_CACHE AUTO_UNMOUNT NONEMPTY COW DIRECT_IO READ_ASYNC HARD_REMOVE USE_INO READDIR_INO ENTRY_TIMEOUT NEGATIVE_TIMEOUT ATTR_TIMEOUT AC_ATTR_TIMEOUT REMEMBER
 RUN \
   echo "**** install s6-overlay ****" && \
-  apk add --no-cache curl && \
-  curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-$(apk --print-arch).tar.gz | tar xvzf - -C / && \
-  apk del --no-cache curl && \
+  wget -qO- https://github.com/just-containers/s6-overlay/releases/download/v3.1.5.0/s6-overlay-$(apk --print-arch).tar.xz | tar xJvf - -C / && \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     bash \
