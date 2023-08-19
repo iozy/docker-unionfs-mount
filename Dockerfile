@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.18
 
 # Build-time metadata as defined at http://label-schema.org
 ARG BUILD_DATE
@@ -12,12 +12,12 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 TZ="Europe/Berlin" PUID=1000 PGID=1000 READ_ONLY_DIR=/read-only READ_WRITE_DIR=/read-write MERGED_DIR=/merged REMEMBER=30 READ_SYNC=true COW=true AUTO_CACHE=true USE_INO=true
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 TZ="Europe/Berlin" PUID=1000 PGID=1000 READ_ONLY_DIR=/read-only READ_WRITE_DIR=/read-write MERGED_DIR=/merged REMEMBER=30 READ_SYNC=true COW=true AUTO_CACHE=true 
 # AUTO_CACHE AUTO_UNMOUNT NONEMPTY COW DIRECT_IO READ_ASYNC HARD_REMOVE USE_INO READDIR_INO ENTRY_TIMEOUT NEGATIVE_TIMEOUT ATTR_TIMEOUT AC_ATTR_TIMEOUT REMEMBER
 RUN \
   echo "**** install s6-overlay ****" && \
   apk add --no-cache curl && \
-  curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-amd64.tar.gz | tar xvzf - -C / && \
+  curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-$(apk --print-arch).tar.gz | tar xvzf - -C / && \
   apk del --no-cache curl && \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \

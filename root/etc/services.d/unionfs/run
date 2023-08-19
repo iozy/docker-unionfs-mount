@@ -2,7 +2,7 @@
 echo "$( date +'%Y/%m/%d %H:%M:%S' ) Mounting ${READ_ONLY_DIR} + ${READ_WRITE_DIR} in ${MERGED_DIR}"
 
 params=""
-for key in AUTO_CACHE AUTO_UNMOUNT NONEMPTY COW DIRECT_IO ASYNC_READ HARD_REMOVE USE_INO READDIR_INO ATOMIC_O_TRUNC BIG_WRITES; do
+for key in AUTO_CACHE AUTO_UNMOUNT NONEMPTY COW DIRECT_IO ASYNC_READ HARD_REMOVE READDIR_INO ATOMIC_O_TRUNC BIG_WRITES; do
   value="${!key}"
   if [ -n "${value}" ];then
     if [ "$key" == "ASYNC_READ" ];then
