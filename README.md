@@ -1,4 +1,3 @@
-[![](https://images.microbadger.com/badges/image/meyay/unionfs-mount.svg)](https://microbadger.com/images/meyay/unionfs-mount "Get your own image badge on microbadger.com")[![](https://images.microbadger.com/badges/version/meyay/unionfs-mount.svg)](https://microbadger.com/images/meyay/unionfs-mount "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/commit/meyay/unionfs-mount.svg)](https://microbadger.com/images/meyay/unionfs-mount "Get your own commit badge on microbadger.com")
 # unionfs-mount
 
 Create a unionfs mount, merging the content of a read only source, and a read/write source folder.
@@ -17,8 +16,8 @@ docker run -d \
  --env PGID=100 \
  --volume $PWD/archive:/read-only:ro\
  --volume $PWD/current:/read-write:rw\
- --volume $PWD/unionfs:/unionfs:shared \
-  meyay/unionfs-mount:1.0.2
+ --volume $PWD/unionfs:/merged:shared \
+  iozy/unionfs-mount:latest
 ```
 
 ## Docker Compose Usage 
@@ -26,13 +25,13 @@ docker run -d \
 version: '2.2'
 services:
   unionfs:
-    image: meyay/unionfs-mount:1.0.2
+    image: iozy/unionfs-mount:latest
     container_name: unionfs-mount
     privileged: true
     volumes:
     - $PWD/archive:/read-only:ro
     - $PWD/current:read-write:rw
-    - $PWD/unionfs:/unionfs:shared
+    - $PWD/unionfs:/merged:shared
     environment:
       TZ: 'Europe/Berlin'
       PUID: '1026'
@@ -48,7 +47,7 @@ The environment parameters are split into two halves, separated by an equal, the
 | TZ | Europe/Berlin | The timezone to use for file operations and the log. |
 | PUID | 1000 | The user id used to access files. |
 | PGID | 1000 | The group id used to access files. |
-| MOUNT_PATH  | /unionfs |  Optional: the container target path for the unionfs volume mapping. |
+| MOUNT_PATH  | /merged |  Optional: the container target path for the unionfs volume mapping. |
 
 The volume parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side.
 
@@ -56,7 +55,7 @@ The volume parameters are split into two halves, separated by a colon, the left 
 | ------ | ------ |
 | /read-only  |  The read only mount point. |
 | /read-write |  The read write mount point.|
-| /unionfs  |  The unionfs mount. Needs to match the MOUNT_PATH. |
+| /merged  |  The unionfs mount. Needs to match the MOUNT_PATH. |
 
 The examples form above assume that `/read-only` and `/read-writ`e exist localy in your filesystem.
 
